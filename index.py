@@ -1,9 +1,9 @@
 #!/usr/bin python3.7
 import cglib
 cglib.enable()
-print "Content-type: text/html" 
-print ()
-print "<html><body>Test Page</body></html>"
+print ("Content-type: text/html; chatset=utf-8") 
+print()
+print ("<html><body>Test Page</body></html>")
 #from flask import Flask
 
 #app = Flask(__name__)
