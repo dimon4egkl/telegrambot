@@ -156,7 +156,7 @@ def vid(message):
 # Remove webhook, it fails sometimes the set if there is a previous webhook
 bot.remove_webhook()
 
-time.sleep(1)
+time.sleep(5)
 
 # Set webhook
 bot.set_webhook(url=WEBHOOK_URL_BASE + WEBHOOK_URL_PATH,
