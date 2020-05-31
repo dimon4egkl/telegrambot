@@ -59,8 +59,7 @@ def welcome(message):
         sql = db.cursor()
         sql.execute("SELECT id FROM users WHERE id =?", (message.from_user.id,))
         if sql.fetchone() is None:
-            sql.execute(f"INSERT INTO users VALUES (?,?,?,?,?,?,?,?,?,?,?)",
-                        (message.from_user.id, message.from_user.username, 0, 0, 0, 0,0,0,0,message.from_user.first_name,message.from_user.last_name))
+            sql.execute(f"INSERT INTO users VALUES (?,?,?,?,?,?,?,?,?,?,?)",(message.from_user.id, message.from_user.username, 0, 0, 0, 0,0,0,0,message.from_user.first_name,message.from_user.last_name))
             db.commit()
             bot.send_message(message.chat.id, "Вас зареєстровано в базі",reply_to_message_id=message.message_id)
         else:
