@@ -63,6 +63,6 @@ def report(report_text):
 
 
 report_text=report(report_text)
-bot.send_message(config.CHAT_ID, report_text, parse_mode="html")
+bot.send_message(config.GROUP_CHAT_ID, report_text, parse_mode="html")
 
 
