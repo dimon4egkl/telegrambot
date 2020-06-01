@@ -82,7 +82,7 @@ def welcome(message):
 # Handle all other messages
 @bot.message_handler(content_types=['text'])
 def reply(message):
-
+    print(message.chat.id)
     if message.chat.type=='private':
         db = sqlite3.connect("server.sqlite3")
         sql = db.cursor()
