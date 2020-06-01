@@ -121,7 +121,7 @@ def reply(message):
         if message.text.find("#task")!=-1:
             db = sqlite3.connect("server.sqlite3")
             sql = db.cursor()
-            bot.send_message(message.chat.id,"Завдання виконано",reply_to_message_id=message.message_id)
+            bot.send_message(message.from_user.id,"Завдання виконано",reply_to_message_id=message.message_id)
             sql.execute("UPDATE users SET present_day_task_completeness = 1 WHERE id =? ",(message.from_user.id,))
             db.commit()
 
@@ -142,10 +142,6 @@ def vid(message):
         if date_hour>24:
              date_hour-=24
         date_minute = int(date.strftime('%M'))
-        print(check_hour)
-        print(check_minute)
-        print(date_hour)
-        print(date_minute)
         if check_hour >= date_hour or (check_hour==date_hour and check_minute >= date_minute):
             bot.send_message(message.from_user.id, "Відео прийняте. Ти молодець. Гарного ранку )")
             sql.execute("UPDATE users SET wakeup_completeness=1  WHERE id =?",
