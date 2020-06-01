@@ -121,7 +121,7 @@ def reply(message):
         if message.text.find("#task")!=-1:
             db = sqlite3.connect("server.sqlite3")
             sql = db.cursor()
-            bot.send_message(message.from_user.id,"Завдання виконано",reply_to_message_id=message.message_id)
+            bot.send_message(message.from_user.id,"Завдання виконано")
             sql.execute("UPDATE users SET present_day_task_completeness = 1 WHERE id =? ",(message.from_user.id,))
             db.commit()
 
