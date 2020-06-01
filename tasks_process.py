@@ -18,6 +18,6 @@ sql.execute("SELECT * FROM users")
 tasks = sql.fetchall()
 for task in tasks:
     print(task)
-    #sql.execute("UPDATE users SET wakeup_completeness =?  WHERE id =? ",(1,task[0],))
+    sql.execute("UPDATE users SET prev_day_task_completeness =?  WHERE id =? ",(1,task[0],))
     db.commit()
 print("done")
