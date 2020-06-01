@@ -142,7 +142,7 @@ def vid(message):
         date_hour = int(date.strftime('%H'))+ 7
         if date_hour>24:
              date_hour-=24
-        date_minute = int(date.strftime('%M')
+        date_minute = int(date.strftime('%M'))
         print(check_hour)
         print(check_minute)
         print(date_hour)
