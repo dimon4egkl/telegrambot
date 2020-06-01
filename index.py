@@ -147,7 +147,7 @@ def vid(message):
         print(check_minute)
         print(date_hour)
         print(date_minute)
-        if check_hour >= date_hour and check_minute >= date_minute:
+        if check_hour >= date_hour or (check_hour==date_hour and check_minute >= date_minute):
             bot.send_message(message.from_user.id, "Відео прийняте. Ти молодець. Гарного ранку )")
             sql.execute("UPDATE users SET wakeup_completeness=1  WHERE id =?",
                         (message.from_user.id,))
