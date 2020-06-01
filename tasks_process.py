@@ -13,12 +13,11 @@ sql = db.cursor()
 # #     db.commit()
 # # print("done")
 
-sql.execute("SELECT id, present_day_task_completeness, wakeup_completeness FROM users")
-
+#sql.execute("SELECT id, present_day_task_completeness, wakeup_completeness FROM users")
+sql.execute("SELECT * FROM users")
 tasks = sql.fetchall()
 for task in tasks:
     print(task)
-    sql.execute("UPDATE users SET wakeup_completeness =?  WHERE id =? ",(1,task[0],))
-    print(task)
+    #sql.execute("UPDATE users SET wakeup_completeness =?  WHERE id =? ",(1,task[0],))
     db.commit()
 print("done")
