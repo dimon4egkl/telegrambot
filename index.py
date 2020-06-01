@@ -139,8 +139,10 @@ def vid(message):
     else:
         check_minute = check[1]
         date = datetime.datetime.fromtimestamp(message.date)
-        date_hour = int(date.strftime('%H'))
-        date_minute = int(date.strftime('%M'))
+        date_hour = int(date.strftime('%H'))+7
+        if date_our>24:
+            date_our-=24
+        date_minute = int(date.strftime('%M')
         print(check_hour)
         print(check_minute)
         print(date_hour)
