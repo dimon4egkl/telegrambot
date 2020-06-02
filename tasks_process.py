@@ -13,7 +13,7 @@ while True:
     if hour > 24:
         hour -= 24
     print(hour)
-    if hour == 6:
+    if hour == 2:
 
         for task in tasks:
             sql.execute("UPDATE users SET prev_day_task_completeness =?, present_day_task_completeness=?,wakeup_completeness=?  WHERE id =? ",(task[1],0,0,task[0],))
