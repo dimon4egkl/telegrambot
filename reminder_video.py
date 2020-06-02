@@ -20,11 +20,9 @@ while True:
 
     for user in users:
             differense_in_time = (user[2] - hour)*60 + user[3] - minute
-            print(hour)
-            print(minute)
-            print(differense_in_time)
-            if differense_in_time <= 15 and differense_in_time > 0:
+
+            if differense_in_time <= 15 and differense_in_time > 0 and user[1]==0:
                 bot.send_message(user[0], "До скидання відео звіту залишилось всього {0} хв. Поспіши :)".format(differense_in_time))
-    time.sleep(300)
+    time.sleep(900)
 
 
