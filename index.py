@@ -125,7 +125,7 @@ def reply(message):
             sql.execute("UPDATE users SET present_day_task_completeness = 1 WHERE id =? ",(message.from_user.id,))
             db.commit()
 
-@bot.message_handler(content_types=['video_note'])
+@bot.message_handler(content_types=['video_note','video'])
 def vid(message):
     db = sqlite3.connect("server.sqlite3")
     sql = db.cursor()
