@@ -130,7 +130,7 @@ def reply(message):
                     bot.unpin_chat_message(message.chat.id)
                 except:
                     pass
-                bot.pin_chat_message(config.CHAT_ID,message.message_id)
+                bot.pin_chat_message(message.chat.id,message.message_id)
                 return
         if message.text.find("#task")!=-1:
             db = sqlite3.connect("server.sqlite3")
@@ -138,7 +138,15 @@ def reply(message):
             bot.send_message(message.from_user.id,"Завдання виконано")
             sql.execute("UPDATE users SET present_day_task_completeness = 1 WHERE id =? ",(message.from_user.id,))
             db.commit()
-
+@bot.message_handler(content_types=['input_media_photo'])
+def photo_task(message):
+    if message.caption.find("#task")!=-1:
+        print(message.caption)
+        db = sqlite3.connect("server.sqlite3")
+        sql = db.cursor()
+        bot.send_message(message.from_user.id, "Завдання виконано")
+        sql.execute("UPDATE users SET present_day_task_completeness = 1 WHERE id =? ", (message.from_user.id,))
+        db.commit()
 @bot.message_handler(content_types=['video_note','video'])
 def vid(message):
     db = sqlite3.connect("server.sqlite3")
