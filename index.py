@@ -138,7 +138,7 @@ def reply(message):
             bot.send_message(message.from_user.id,"Завдання виконано")
             sql.execute("UPDATE users SET present_day_task_completeness = 1 WHERE id =? ",(message.from_user.id,))
             db.commit()
-@bot.message_handler(content_types=['input_media_photo'])
+@bot.message_handler(content_types=['photo'])
 def photo_task(message):
     if message.caption.find("#task")!=-1:
         print(message.caption)
