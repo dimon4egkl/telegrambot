@@ -99,7 +99,8 @@ def reply(message):
         if message.text == "🧍‍♀️🧍 Мій друзяка на сьогодні":
             sql.execute("SELECT friend_id FROM friends WHERE id =?", (message.from_user.id,))
             friend_id = sql.fetchone()
-            friend= sql.execute("SELECT username,first_name,last_name FROM users WHERE id=?",(friend_id[0],))
+            sql.execute("SELECT username,first_name,last_name FROM users WHERE id=?",(friend_id[0],))
+            friend = sql.fetchone()
             name = " "
             if friend[0] == None or friend[0] == "" or friend[0] == " ":
                 if friend[2] == None:
