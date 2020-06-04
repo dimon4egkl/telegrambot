@@ -151,12 +151,14 @@ def photo_task(message):
 def vid(message):
     db = sqlite3.connect("server.sqlite3")
     sql = db.cursor()
-    sql.execute("SELECT hour_of_wakeup, minute_of_wakeup FROM users WHERE id =?",
+    sql.execute("SELECT hour_of_wakeup, minute_of_wakeup, wakeup_completeness FROM users WHERE id =?",
                 (message.from_user.id,))
     check= sql.fetchone()
     check_hour = check[0]
     if check_hour==0:
         bot.send_message(message.from_user.id, "Вам потрібно спочатку задати час пробудження. Настисніть кнопки під клавіатурою \n'⏰ Встановити новий час підйому' ",parse_mode='html')
+    elif check[2]==1:
+        pass
     else:
         check_minute = check[1]
         date = datetime.datetime.fromtimestamp(message.date)
