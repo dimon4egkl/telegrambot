@@ -123,6 +123,7 @@ def reply(message):
                 index = message.text.find("#newtask")
                 string = message.text[:index] + message.text[index+9:]
                 sql.execute("UPDATE tasks SET text=?",(string,))
+                db.commit()
                 sql.execute("SELECT id FROM users")
                 users = sql.fetchmany(2)
                 for user in users:
