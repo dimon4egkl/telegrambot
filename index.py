@@ -83,17 +83,6 @@ def reply(message):
     if message.chat.type=='private':
         db = sqlite3.connect("server.sqlite3")
         sql = db.cursor()
-        if message.from_user.id == 404063513:
-
-            if message.text.find("#newtask")!=-1:
-                index = message.text.find("/newtask")
-                string = message.text[:index] + message.text[index+8:]
-                sql.execute("SELECT id FROM users")
-                users = sql.fetchmany(2)
-                for user in users:
-                    bot.send_message(user[0],string)
-                bot.pin_chat_message(config.CHAT_ID,message.message_id)
-                return
         if message.text == "⏰ Встановити новий час підйому":
             sql.execute("UPDATE users SET hour_set_bool = 1 WHERE id =?", (message.from_user.id,))
             db.commit()
@@ -127,6 +116,19 @@ def reply(message):
                     bot.send_message(message.chat.id, "Ви ввели дату у неправильному форматі. Портрібно у форматі год:хв. Введіть ще раз")
                 return
     else:
+        if message.from_user.id == 404063513:
+            if message.text.find("#newtask")!=-1:
+                db = sqlite3.connect("server.sqlite3")
+                sql = db.cursor()
+                index = message.text.find("#newtask")
+                string = message.text[:index] + message.text[index+8:]
+                sql.execute("SELECT id FROM users")
+                users = sql.fetchmany(2)
+                for user in users:
+                    bot.send_message(user[0],string)
+               # bot.send_message(404063513, bot.get_me())
+                bot.pin_chat_message(config.CHAT_ID,message.message_id)
+                return
         if message.text.find("#task")!=-1:
             db = sqlite3.connect("server.sqlite3")
             sql = db.cursor()
