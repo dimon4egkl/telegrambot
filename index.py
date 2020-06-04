@@ -12,6 +12,7 @@ import datetime
 from telebot import types
 import telebot
 
+
 API_TOKEN = config.TOKEN
 
 WEBHOOK_HOST = '185.253.218.184'
@@ -65,8 +66,10 @@ def welcome(message):
         else:
             bot.send_message(message.chat.id, "Ви уже зареєстровані в базі")
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-        item = types.KeyboardButton("⏰ Встановити новий час підйому")
-        markup.add(item)
+        item1 = types.KeyboardButton("⏰ Встановити новий час підйому")
+        item2 = types.KeyboardButton("📌 Завдання на сьогодні")
+        item3 = types.KeyboardButton("🧍‍♀️🧍 Мій друзяка на сьогодні")
+        markup.add(item1,item2,item3)
         sti = open('sticker.webp', 'rb')
         bot.send_sticker(message.chat.id, sti)
         bot.send_message(message.chat.id,
@@ -88,7 +91,25 @@ def reply(message):
             db.commit()
             bot.send_message(message.chat.id,"Введіть будь ласка коли ви хочете встати у форматі год:хв")
             return
-
+        if message.text == "📌 Завдання на сьогодні":
+            sql.execute("SELECT text FROM tasks")
+            task = sql.fetchone()
+            bot.send_message(message.from_user.id,"Ваше завдання на сьогодні : " + task)
+            return
+        if message.text == "🧍‍♀️🧍 Мій друзяка на сьогодні":
+            sql.execute("SELECT friend_id FROM friends WHERE id =?", (message.from_user.id,))
+            friend_id = sql.fetchone()
+            friend= sql.execute("SELECT username,first_name,last_name FROM users WHERE id=?",(friend_id,))
+            name = " "
+            if friend[0] == None or friend[0] == "" or friend[0] == " ":
+                if friend[2] == None:
+                    name = friend[1]
+                else:
+                    name = friend[1] + " " + friend[2]
+            else:
+                name = "@" + friend[0]
+            bot.send_message(message.chat.id, "Ваш друзяка на сьогодні: "+ name)
+            return
         sql.execute("SELECT hour_set_bool FROM users WHERE id =?", (message.from_user.id,))
         hour_bool=sql.fetchone()
         hour_bool=hour_bool[0]
@@ -179,7 +200,6 @@ def vid(message):
                         (message.from_user.id,))
             db.commit()
             bot.send_message(message.from_user.id, "Ти трішки запінився. Але не переживай. Завтра обов'язково вийде")
-
 # Remove webhook, it fails sometimes the set if there is a previous webhook
 bot.remove_webhook()
 
