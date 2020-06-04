@@ -121,12 +121,15 @@ def reply(message):
                 db = sqlite3.connect("server.sqlite3")
                 sql = db.cursor()
                 index = message.text.find("#newtask")
-                string = message.text[:index] + message.text[index+8:]
+                string = message.text[:index] + message.text[index+9:]
                 sql.execute("SELECT id FROM users")
                 users = sql.fetchmany(2)
                 for user in users:
                     bot.send_message(user[0],string)
-               # bot.send_message(404063513, bot.get_me())
+                try:
+                    bot.unpin_chat_message(message.chat.id)
+                except:
+                    pass
                 bot.pin_chat_message(config.CHAT_ID,message.message_id)
                 return
         if message.text.find("#task")!=-1:
