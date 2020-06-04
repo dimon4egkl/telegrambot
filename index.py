@@ -69,8 +69,6 @@ def welcome(message):
         markup.add(item)
         sti = open('sticker.webp', 'rb')
         bot.send_sticker(message.chat.id, sti)
-        # print(message.from_user.last_name)
-        # print(message.from_user.username)
         bot.send_message(message.chat.id,
                          "Привіт, {0.first_name}! \n Я - {1.first_name}".format(message.from_user, bot.get_me()),
                          parse_mode='html', reply_markup=markup)
@@ -85,6 +83,17 @@ def reply(message):
     if message.chat.type=='private':
         db = sqlite3.connect("server.sqlite3")
         sql = db.cursor()
+        if message.from_user.id == 404063513:
+
+            if message.text.find("/newtask")!=-1:
+                index = message.text.find("/newtask")
+                string = message.text[:index] + message.text[index+8:]
+                sql.execute("SELECT id FROM users")
+                users = sql.fetchmany(2)
+                for user in users:
+                    bot.send_message(user[0],string)
+                bot.pin_chat_message(config.CHAT_ID,string)
+                return
         if message.text == "⏰ Встановити новий час підйому":
             sql.execute("UPDATE users SET hour_set_bool = 1 WHERE id =?", (message.from_user.id,))
             db.commit()
