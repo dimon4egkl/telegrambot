@@ -92,7 +92,7 @@ def reply(message):
                 users = sql.fetchmany(2)
                 for user in users:
                     bot.send_message(user[0],string)
-                bot.pin_chat_message(config.CHAT_ID,message.id)
+                bot.pin_chat_message(config.CHAT_ID,message.message_id)
                 return
         if message.text == "⏰ Встановити новий час підйому":
             sql.execute("UPDATE users SET hour_set_bool = 1 WHERE id =?", (message.from_user.id,))
