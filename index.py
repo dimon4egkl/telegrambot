@@ -116,7 +116,7 @@ def reply(message):
                     bot.send_message(message.chat.id, "Ви ввели дату у неправильному форматі. Портрібно у форматі год:хв. Введіть ще раз")
                 return
     else:
-        if message.from_user.id == 404063513:
+        if message.from_user.id == 404063513 or message.from_user.id == 298563297:
             if message.text.find("#newtask")!=-1:
                 db = sqlite3.connect("server.sqlite3")
                 sql = db.cursor()
