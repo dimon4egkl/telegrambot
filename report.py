@@ -10,7 +10,7 @@ db = sqlite3.connect("server.sqlite3")
 sql = db.cursor()
 while True:
     date = datetime.datetime.now().time()
-    hour = date.hour + 1
+    hour = date.hour + 7
         # додати 7 годин коли закідати в git
     if hour == 10:
         sql.execute("SELECT * FROM users")
