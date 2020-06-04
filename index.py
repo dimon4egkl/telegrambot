@@ -85,14 +85,14 @@ def reply(message):
         sql = db.cursor()
         if message.from_user.id == 404063513:
 
-            if message.text.find("/newtask")!=-1:
+            if message.text.find("#newtask")!=-1:
                 index = message.text.find("/newtask")
                 string = message.text[:index] + message.text[index+8:]
                 sql.execute("SELECT id FROM users")
                 users = sql.fetchmany(2)
                 for user in users:
                     bot.send_message(user[0],string)
-                bot.pin_chat_message(config.CHAT_ID,string)
+                bot.pin_chat_message(config.CHAT_ID,message.id)
                 return
         if message.text == "⏰ Встановити новий час підйому":
             sql.execute("UPDATE users SET hour_set_bool = 1 WHERE id =?", (message.from_user.id,))
