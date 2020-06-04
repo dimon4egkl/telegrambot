@@ -13,7 +13,7 @@ print("task")
 sql.execute("SELECT text FROM tasks")
 task = sql.fetchone()
 print(task)
-sql.execute("SELECT * FROM users")
+sql.execute("SELECT * FROM friends")
 friends = sql.fetchall()
 print("Friends")
 for friend in friends:
