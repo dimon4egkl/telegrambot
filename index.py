@@ -19,8 +19,8 @@ WEBHOOK_HOST = '185.253.218.184'
 WEBHOOK_PORT = 88  # 443, 80, 88 or 8443 (port need to be 'open')
 WEBHOOK_LISTEN = '185.253.218.184'  # In some VPS you may need to put here the IP addr
 
-WEBHOOK_SSL_CERT = '.webhook_cert.pem'  # Path to the ssl certificate
-WEBHOOK_SSL_PRIV = '.webhook_pkey.pem'  # Path to the ssl private key
+WEBHOOK_SSL_CERT = './webhook_cert.pem'  # Path to the ssl certificate
+WEBHOOK_SSL_PRIV = './webhook_pkey.pem'  # Path to the ssl private key
 
 WEBHOOK_URL_BASE = "https://%s:%s" % (WEBHOOK_HOST, WEBHOOK_PORT)
 WEBHOOK_URL_PATH = "/%s/" % (API_TOKEN)
@@ -138,7 +138,7 @@ def reply(message):
                     bot.send_message(message.chat.id, "Ви ввели дату у неправильному форматі. Портрібно у форматі год:хв. Введіть ще раз")
                 return
     else:
-        if message.from_user.id == 404063513 or message.from_user.id == 298563297: #Дозволяє мені і Віталіку робити #newtask
+        if message.from_user.id == 404063513 or message.from_user.id == 298563297:
             if message.text.find("#newtask")!=-1:
                 db = sqlite3.connect("server.sqlite3")
                 sql = db.cursor()
@@ -147,7 +147,7 @@ def reply(message):
                 sql.execute("UPDATE tasks SET text=?",(string,))
                 db.commit()
                 sql.execute("SELECT id FROM users")
-                users = sql.fetchall()
+                users = sql.fetchmany(2)
                 for user in users:
                     bot.send_message(user[0],string)
                 try:
