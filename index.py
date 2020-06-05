@@ -138,7 +138,7 @@ def reply(message):
                     bot.send_message(message.chat.id, "Ви ввели дату у неправильному форматі. Портрібно у форматі год:хв. Введіть ще раз")
                 return
     else:
-        if message.from_user.id == 404063513 or message.from_user.id == 298563297:
+        if message.from_user.id == 404063513 or message.from_user.id == 298563297: #Дозволяє мені і Віталіку робити #newtask
             if message.text.find("#newtask")!=-1:
                 db = sqlite3.connect("server.sqlite3")
                 sql = db.cursor()
@@ -147,7 +147,7 @@ def reply(message):
                 sql.execute("UPDATE tasks SET text=?",(string,))
                 db.commit()
                 sql.execute("SELECT id FROM users")
-                users = sql.fetchmany(2)
+                users = sql.fetchall()
                 for user in users:
                     bot.send_message(user[0],string)
                 try:
@@ -215,3 +215,4 @@ app.run(host=WEBHOOK_LISTEN,
         port=WEBHOOK_PORT,
         ssl_context=(WEBHOOK_SSL_CERT, WEBHOOK_SSL_PRIV),
         debug=True)
+
