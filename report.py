@@ -23,7 +23,7 @@ while True:
         def report(report_text):
             wokeup_in_time = 0
             for user in users:
-                if user[1]!="katarzynka":
+                if user[1]!="katarzynka" and user[1]!='V_Yahenskyi' and user[9]!='Valiiiiik':
                     name = ""
                     if user[1] == None or user[1] =="" or user[1]==" ":
                         if user[10]==None:
@@ -34,14 +34,14 @@ while True:
                         name = "@"+ user[1]
                     task_text = ""
                     if user[6]==0:
-                        task_text= " Завдання не виконано ❌"
+                        task_text= " Завдання не виконано ❔"
                     if int(user[8]) == 0:
                         insert_index = report_text.find("&&")
-                        insert_text = name + " -відео не було надіслане до 10:00 ❌".format(user)
+                        insert_text = name + " -відео не було надіслане до 10:00 ❔".format(user)
                         report_text = report_text[:insert_index] + insert_text +task_text+ "\n" + report_text[insert_index:]
                     if int(user[8]) == 2:
                         insert_index = report_text.find("&&")
-                        insert_text = name + " -відео надіслане пізніше {0[4]}:{0[5]}❌".format(user)
+                        insert_text = name + " -відео надіслане пізніше {0[4]}:{0[5]}❔".format(user)
                         report_text = report_text[:insert_index] + insert_text +task_text +"\n" + report_text[insert_index:]
                     if int(user[8]) == 1 and user[6]==0:
                         insert_index = report_text.find("&&")

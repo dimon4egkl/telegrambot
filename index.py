@@ -164,7 +164,6 @@ def reply(message):
             db.commit()
 @bot.message_handler(content_types=['photo'])
 def photo_task(message):
-    print(message.caption)
     if message.caption!=None:
         if message.caption.find("#task")!=-1:
             print(message.caption)
