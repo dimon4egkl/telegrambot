@@ -23,7 +23,7 @@ while True:
         def report(report_text):
             wokeup_in_time = 0
             for user in users:
-                if user[1]!="katarzynka" and user[1]!='V_Yahenskyi' and user[9]!='Valiiiiik':
+                if user[1]!="katarzynka" and user[1]!='V_Yahenskyi':
                     name = ""
                     if user[1] == None or user[1] =="" or user[1]==" ":
                         if user[10]==None:
