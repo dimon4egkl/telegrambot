@@ -162,16 +162,23 @@ def reply(message):
             bot.send_message(message.from_user.id,"Завдання виконано")
             sql.execute("UPDATE users SET present_day_task_completeness = 1 WHERE id =? ",(message.from_user.id,))
             db.commit()
+            return
+        if message.text.find("#list")!=-1:
+            bot.send_message(message.from_user.id,"Твій трекер виглядає шикарно :) Продовжуй в тому ж дусі")
+            return
+
 @bot.message_handler(content_types=['photo'])
 def photo_task(message):
     if message.caption!=None:
         if message.caption.find("#task")!=-1:
-            print(message.caption)
             db = sqlite3.connect("server.sqlite3")
             sql = db.cursor()
             bot.send_message(message.from_user.id, "Завдання виконано")
             sql.execute("UPDATE users SET present_day_task_completeness = 1 WHERE id =? ", (message.from_user.id,))
             db.commit()
+        if message.caption.find("#list")!=-1:
+            bot.send_message(message.from_user.id, "Твій трекер виглядає шикарно :) Продовжуй в тому ж дусі")
+
 @bot.message_handler(content_types=['video_note','video'])
 def vid(message):
     db = sqlite3.connect("server.sqlite3")
