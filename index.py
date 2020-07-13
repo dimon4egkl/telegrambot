@@ -55,7 +55,7 @@ def webhook():
 @bot.message_handler(commands=['start'])
 def welcome(message):
     if message.chat.type =="private":
-        db = sqlite3.connect("server.sqlite3")
+        db = sqlite3.connect("db.sqlite3")
 
         sql = db.cursor()
         sql.execute("SELECT id FROM users WHERE id =?", (message.from_user.id,))
@@ -85,7 +85,7 @@ def welcome(message):
 def reply(message):
     print(message.chat.id)
     if message.chat.type=='private':
-        db = sqlite3.connect("server.sqlite3")
+        db = sqlite3.connect("db.sqlite3")
         sql = db.cursor()
         if message.text == "⏰ Встановити новий час підйому":
             sql.execute("UPDATE users SET hour_set_bool = 1 WHERE id =?", (message.from_user.id,))
@@ -141,7 +141,7 @@ def reply(message):
     else:
         if message.from_user.id == 404063513 or message.from_user.id == 298563297: #Дозволяє мені і Віталіку робити #newtask
             if message.text.find("#newtask")!=-1:
-                db = sqlite3.connect("server.sqlite3")
+                db = sqlite3.connect("db.sqlite3")
                 sql = db.cursor()
                 index = message.text.find("#newtask")
                 string = message.text[:index] + message.text[index+9:]
@@ -158,7 +158,7 @@ def reply(message):
                 bot.pin_chat_message(message.chat.id,message.message_id)
                 return
         if message.text.find("#task")!=-1:
-            db = sqlite3.connect("server.sqlite3")
+            db = sqlite3.connect("db.sqlite3")
             sql = db.cursor()
             bot.send_message(message.from_user.id,"Завдання виконано")
             sql.execute("UPDATE users SET present_day_task_completeness = 1 WHERE id =? ",(message.from_user.id,))
@@ -172,7 +172,7 @@ def reply(message):
 def photo_task(message):
     if message.caption!=None:
         if message.caption.find("#task")!=-1:
-            db = sqlite3.connect("server.sqlite3")
+            db = sqlite3.connect("db.sqlite3")
             sql = db.cursor()
             bot.send_message(message.from_user.id, "Завдання виконано")
             sql.execute("UPDATE users SET present_day_task_completeness = 1 WHERE id =? ", (message.from_user.id,))
@@ -182,7 +182,7 @@ def photo_task(message):
 
 @bot.message_handler(content_types=['video_note','video'])
 def vid(message):
-    db = sqlite3.connect("server.sqlite3")
+    db = sqlite3.connect("db.sqlite3")
     sql = db.cursor()
     sql.execute("SELECT hour_of_wakeup, minute_of_wakeup, wakeup_completeness FROM users WHERE id =?",
                 (message.from_user.id,))

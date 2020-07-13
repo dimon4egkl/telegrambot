@@ -5,7 +5,7 @@ import config
 import datetime
 
 bot = telebot.TeleBot(config.TOKEN)
-db = sqlite3.connect("server.sqlite3")
+db = sqlite3.connect("db.sqlite3")
 sql = db.cursor()
 while True:
     date = datetime.datetime.now().time()

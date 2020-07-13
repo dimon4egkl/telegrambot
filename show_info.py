@@ -1,7 +1,7 @@
 import sqlite3
 import datetime
 
-db = sqlite3.connect("server.sqlite3")
+db = sqlite3.connect("db.sqlite3")
 sql = db.cursor()
 
 sql.execute("SELECT * FROM users")

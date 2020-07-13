@@ -2,7 +2,7 @@ import sqlite3
 import datetime
 import time
 import random
-db = sqlite3.connect("server.sqlite3")
+db = sqlite3.connect("db.sqlite3")
 sql = db.cursor()
 
 
