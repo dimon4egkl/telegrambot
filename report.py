@@ -11,7 +11,9 @@ sql = db.cursor()
 while True:
     date = datetime.datetime.now().time()
     day = datetime.datetime.now().weekday()
-    hour = date.hour +7
+    hour = date.hour+7
+    print(hour)
+    print(day)
     # додати 7 годин коли закідати в git
     if hour == 10:
         sql.execute("SELECT * FROM users")
@@ -43,11 +45,16 @@ while True:
                         insert_index = report_text.find("&&")
                         insert_text = name + " -відео надіслане пізніше {0[4]}:{0[5]}❔".format(user)
                         report_text = report_text[:insert_index] + insert_text +task_text +"\n" + report_text[insert_index:]
-                    if int(user[8]) == 1 and user[6]==0:
-                        insert_index = report_text.find("&&")
-                        insert_text = name+task_text
-                        report_text = report_text[:insert_index] + insert_text +"\n" +report_text[insert_index:]
-                        wokeup_in_time+=1
+                    if int(user[8]) == 1 and user[6]==0 :
+                        if day==0 or day==6:
+                            insert_index = report_text.find("&")
+                            insert_text = name + " ✅"
+                            report_text = report_text[:insert_index] + insert_text + "\n" + report_text[insert_index:]
+                        else:
+                            insert_index = report_text.find("&&")
+                            insert_text = name+task_text
+                            report_text = report_text[:insert_index] + insert_text +"\n" +report_text[insert_index:]
+                            wokeup_in_time+=1
                     if int(user[8]) == 1 and user[6]!=0:
                         insert_index = report_text.find("&")
                         insert_text = name+" ✅"
@@ -65,7 +72,7 @@ while True:
 
 
         report_text = report(report_text)
-        bot.send_message(config.GROUP_CHAT_ID, report_text, parse_mode="html")
+        bot.send_message(config.CHAT_ID, report_text, parse_mode="html")
 
     time.sleep(3600)
 
