@@ -10,8 +10,8 @@ db = sqlite3.connect("db.sqlite3")
 sql = db.cursor()
 while True:
     date = datetime.datetime.now().time()
+    day = datetime.datetime.now().weekday()
     hour = date.hour +7
-    print(hour)    
     # додати 7 годин коли закідати в git
     if hour == 10:
         sql.execute("SELECT * FROM users")
@@ -33,7 +33,7 @@ while True:
                     else:
                         name = "@"+ user[1]
                     task_text = ""
-                    if user[6]==0:
+                    if user[6]==0 and day!=0 and day!=6:
                         task_text= " Завдання не виконано ❔"
                     if int(user[8]) == 0:
                         insert_index = report_text.find("&&")

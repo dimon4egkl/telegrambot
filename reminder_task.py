@@ -9,9 +9,10 @@ db = sqlite3.connect("db.sqlite3")
 sql = db.cursor()
 while True:
     date = datetime.datetime.now().time()
+    day = datetime.datetime.now().weekday()
     hour = date.hour + 7
         # додати 7 годин коли закідати в git
-    if hour == 18 or hour ==21:
+    if day!=6 and (hour == 18 or hour ==21) :
         sql.execute("SELECT id, present_day_task_completeness FROM users")
         users = sql.fetchall()
         for user in users:
