@@ -50,11 +50,12 @@ while True:
                             insert_index = report_text.find("&")
                             insert_text = name + " ✅"
                             report_text = report_text[:insert_index] + insert_text + "\n" + report_text[insert_index:]
+                            wokeup_in_time += 1
                         else:
                             insert_index = report_text.find("&&")
                             insert_text = name+task_text
                             report_text = report_text[:insert_index] + insert_text +"\n" +report_text[insert_index:]
-                            wokeup_in_time+=1
+                            wokeup_in_time += 1
                     if int(user[8]) == 1 and user[6]!=0:
                         insert_index = report_text.find("&")
                         insert_text = name+" ✅"
