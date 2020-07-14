@@ -37,6 +37,8 @@ while True:
                     task_text = ""
                     if user[6]==0 and day!=0 and day!=6:
                         task_text= " Завдання не виконано ❔"
+                    if user[11] == 0 and day != 0 and day != 6:
+                        task_text += "Трекер звичок не надіслано"
                     if int(user[8]) == 0:
                         insert_index = report_text.find("&&")
                         insert_text = name + " -відео не було надіслане до 10:00 ❔".format(user)
