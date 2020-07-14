@@ -12,8 +12,6 @@ while True:
     date = datetime.datetime.now().time()
     day = datetime.datetime.now().weekday()
     hour = date.hour+7
-    print(hour)
-    print(day)
     # додати 7 годин коли закідати в git
     if hour == 10:
         sql.execute("SELECT * FROM users")
@@ -38,7 +36,7 @@ while True:
                     if user[6]==0 and day!=0 and day!=6:
                         task_text= " Завдання не виконано ❔"
                     if user[11] == 0 and day != 0 and day != 6:
-                        task_text += "Трекер звичок не надіслано"
+                        task_text += "Трекер звичок не надіслано ❔"
                     if int(user[8]) == 0:
                         insert_index = report_text.find("&&")
                         insert_text = name + " -відео не було надіслане до 10:00 ❔".format(user)
@@ -75,7 +73,7 @@ while True:
 
 
         report_text = report(report_text)
-        bot.send_message(config.GROUP_CHAT_ID, report_text, parse_mode="html")
+        bot.send_message(config.CHAT_ID, report_text, parse_mode="html")
 
     time.sleep(3600)
 
