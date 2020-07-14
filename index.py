@@ -165,7 +165,11 @@ def reply(message):
             db.commit()
             return
         if message.text.find("#list")!=-1:
-            bot.send_message(message.from_user.id,"Твій трекер виглядає шикарно :) Продовжуй в тому ж дусі")
+            db = sqlite3.connect("db.sqlite3")
+            sql = db.cursor()
+            bot.send_message(message.from_user.id, "Твій трекер виглядає шикарно :) Продовжуй в тому ж дусі")
+            sql.execute("UPDATE users SET present_day_list_completeness = 1 WHERE id =? ", (message.from_user.id,))
+            db.commit()
             return
 
 @bot.message_handler(content_types=['photo'])
@@ -178,7 +182,11 @@ def photo_task(message):
             sql.execute("UPDATE users SET present_day_task_completeness = 1 WHERE id =? ", (message.from_user.id,))
             db.commit()
         if message.caption.find("#list")!=-1:
+            db = sqlite3.connect("db.sqlite3")
+            sql = db.cursor()
             bot.send_message(message.from_user.id, "Твій трекер виглядає шикарно :) Продовжуй в тому ж дусі")
+            sql.execute("UPDATE users SET present_day_list_completeness = 1 WHERE id =? ", (message.from_user.id,))
+            db.commit()
 
 @bot.message_handler(content_types=['video_note','video'])
 def vid(message):
