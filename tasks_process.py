@@ -8,7 +8,7 @@ sql = db.cursor()
 
 while True:
 
-    sql.execute("SELECT id, present_day_task_completeness, wakeup_completeness FROM users")
+    sql.execute("SELECT id, present_day_task_completeness, wakeup_completeness, present_day_list_completeness  FROM users")
     tasks = sql.fetchall()
     date = datetime.datetime.now().time()
     hour = date.hour  + 7
@@ -19,7 +19,7 @@ while True:
         friends = set()
         for task in tasks:
             friends.add(task[0])
-            sql.execute("UPDATE users SET prev_day_task_completeness =?, present_day_task_completeness=?,wakeup_completeness=?  WHERE id =? ",(task[1],0,0,task[0],))
+            sql.execute("UPDATE users SET prev_day_task_completeness =?, present_day_task_completeness=?,wakeup_completeness=?,prev_day_list_completeness=?,present_day_list_completeness=?  WHERE id =? ",(task[1],0,0,task[0],task[3],0))
             db.commit()
             print("changed!")
         new_friends = random.sample(friends,len(friends))
